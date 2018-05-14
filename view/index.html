@@ -1,0 +1,110 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Datatables in action .Server side processing</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    
+    <style>
+        body {
+            padding-top: 50px;
+        }
+    </style>
+</head>
+
+<body class="bg-info">
+
+    <div class="container">
+        <div class="jumbotron">
+            <h2>Datatables in action!</h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="ZipDatatable">
+            <table id="ZipcodesTable" class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        
+                        <th>ZipCode</th>
+                        <th>City</th>
+                        <th>Population</th>
+                        <th>State</th>
+
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        
+                        <th>ZipCode</th>
+                        <th>City</th>
+                        <th>Population</th>
+                        <th>State</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+
+</body>
+<script>
+
+    //$.fn.poshytip = { defaults: null };
+    //$.fn.editable.defaults.mode = 'inline';
+    $(document).ready(function () {
+        var t = $('#ZipcodesTable').DataTable({
+            "paging": true,
+            "pageLength": 10,
+            "processing": true,
+            "serverSide": true,
+            'ajax': {
+                'type': 'POST',
+                'url': '/populateZipCodes'
+            },
+            'columns':
+                [
+                { 'data': '_id', "defaultContent": "", 'name': 'ZipCode' },
+                { 'data': 'city', "defaultContent": "", 'name': 'City' },
+                { 'data': 'pop', "defaultContent": "", 'name': 'Population' },
+                { 'data': 'state', "defaultContent": "N", 'name': 'State' }
+                ],
+            "columnDefs": [
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }
+            ]
+
+        });
+
+       /* t.on('draw', function () {
+            //setting the next and prev buttons with active or disabled state
+
+            //setting the index column with values.
+            t.column(0, { search: 'applied', order: 'applied' }).nodes().each(
+                function (cell, i) {
+                    cell.innerHTML = i + 1;
+                }
+            );
+        });
+        */
+        //paging
+       /* $('#next').on('click', function () {
+            t.page('next').draw('page');
+        });
+
+        $('#previous').on('click', function () {
+            t.page('previous').draw('page');
+        });
+    */
+    //$('#ZipcodesTable').DataTable();
+     });
+</script>
+
+</html>

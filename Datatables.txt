@@ -1,0 +1,10 @@
+npm init
+npm install express --save 
+npm install body-parser --save
+npm install dotenv --save
+npm install mongoose --save
+
+---------------------------------
+mkdir public view controller model
+----------------------------------
+touch index.js
